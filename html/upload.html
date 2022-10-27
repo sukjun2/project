@@ -37,7 +37,7 @@
                             <nav class="header__nav">
                                 <ul>
                                     <li class="active"><a href="#c">Bookmark</a></li>
-                                    <li><a href="#c">Category</a></li>
+                                    <li><a href="#c">Pictures</a></li>
                                     <li><a href="#c">Wallpaper</a></li>
                                     <li><a href="#c">Notice</a></li>
                                     <li><a href="#c">Feedback</a></li>
@@ -100,7 +100,14 @@
                         <input type="file" name="uploadBasicImage" id="uploadBasicImage" class="uploadBasicImage" accept=".jpg, .jpeg, .png, .gif" placeholder="jpg, gif, png 파일만 넣어주세요!" />
 
                         <label for="uploadWallpaperImage" class="blind">이미지 업로드</label>
-                        <input type="file" name="uploadWallpaperImage" id="uploadWallpaperImage" class="uploadWallpaperImage" accept=".jpg, .jpeg, .png, .gif" placeholder="jpg, gif, png 파일만 넣어주세요!" />
+                        <input
+                            type="file"
+                            name="uploadWallpaperImage"
+                            id="uploadWallpaperImage"
+                            class="uploadWallpaperImage"
+                            accept=".jpg, .jpeg, .png, .gif"
+                            placeholder="jpg, gif, png 파일만 넣어주세요!"
+                        />
                     </div>
 
                     <div class="upload__tag">
@@ -181,38 +188,38 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- ham -->
         <script>
-            $('.toggle').click(function () {
-                $(this).toggleClass('active');
+            $(".toggle").click(function () {
+                $(this).toggleClass("active");
             });
 
-            const hamBtn = document.querySelector('.toggle');
-            const nav = document.querySelector('.headerTop__inner nav');
+            const hamBtn = document.querySelector(".toggle");
+            const nav = document.querySelector(".headerTop__inner nav");
 
-            hamBtn.addEventListener('click', () => {
-                nav.classList.toggle('show');
+            hamBtn.addEventListener("click", () => {
+                nav.classList.toggle("show");
             });
         </script>
         <script>
-            const heartBtn = document.querySelectorAll('.main_card .main_cardBox > img');
+            const heartBtn = document.querySelectorAll(".main_card .main_cardBox > img");
             console.log(heartBtn);
 
             heartBtn.forEach((heart, num) => {
                 // console.log(num);
-                heart.addEventListener('click', () => {
-                    heartBtn[num].classList.toggle('show');
+                heart.addEventListener("click", () => {
+                    heartBtn[num].classList.toggle("show");
                 });
             });
 
-            const profileBox = document.querySelector('.profile'); // 프로필 박스
-            const profileImg = document.querySelector('.profile__img'); // 프로필 이미지
-            const profileNav = profileBox.querySelector('.profile__nav'); // 프로필 박스 네이게이션
+            const profileBox = document.querySelector(".profile"); // 프로필 박스
+            const profileImg = document.querySelector(".profile__img"); // 프로필 이미지
+            const profileNav = profileBox.querySelector(".profile__nav"); // 프로필 박스 네이게이션
             // console.log(profileNav); 프로필 박스, 프로필 이미지, 프로필 박스 네비게이션 모두 확인 완료
 
-            profileBox.addEventListener('mouseenter', () => {
-                profileNav.style.display = 'inline-block';
+            profileBox.addEventListener("mouseenter", () => {
+                profileNav.style.display = "inline-block";
             });
-            profileNav.addEventListener('mouseleave', () => {
-                profileNav.style.display = 'none';
+            profileNav.addEventListener("mouseleave", () => {
+                profileNav.style.display = "none";
             });
             // header script
         </script>
