@@ -2,6 +2,46 @@
 include "../connect/connect.php";
 include "../connect/session.php";
 $searchKeyword = $_GET['searchKeyword'];
+if(isset($_GET['searchSelect'])){
+    $searchSelect = $_GET['searchSelect'];
+} else {
+    $searchSelect = 0;
+}
+
+$page = 1;
+$viewNum = 8;
+$viewLimit = ($viewNum * $page) - $viewNum;
+if($searchSelect == 0){
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    FROM categoryBoard as b 
+    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
+    JOIN userMember as i ON i.userMemberID = b.userMemberID 
+    JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
+    WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
+    GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC ";
+} else if ($searchSelect == 1) {
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    FROM categoryBoard as b 
+    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
+    JOIN userMember as i ON i.userMemberID = b.userMemberID 
+    JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
+    WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
+    GROUP BY b.categgoryBoardID ORDER BY b.categgoryView DESC ";
+} else if ($searchSelect == 2) {
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    FROM categoryBoard as b 
+    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
+    JOIN userMember as i ON i.userMemberID = b.userMemberID 
+    JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
+    WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
+    GROUP BY b.categgoryBoardID ORDER BY b.categgoryView DESC ";
+}
+$boardResult = $connect -> query($boardSql);
+$boardCount = $boardResult -> num_rows;
+
+
+$boardSql .= "LIMIT {$viewLimit}, {$viewNum}";
+$boardResult = $connect -> query($boardSql);
 ?>
 
 <!DOCTYPE html>
@@ -39,21 +79,14 @@ $searchKeyword = $_GET['searchKeyword'];
                 </div>
             </div>
             <div class="search_sort container">
-                <select name="image" id="image_sort">
-                    <option value="Wallpaper">Wallpaper</option>
-                    
-                    <option value="Photo">Photo</option>
-                    <option value="Picture">Picture</option>
-                    <?php
-                    
-                    ?>
-                </select>
+                
+
                 <select name="image" id="image_sort">
                     <option value="date">날짜별</option>
                     <option value="viewcount">조회수</option>
                     <option value="like">좋아요수</option>
                 </select>
-                <div class="num">Total Found:00</div>
+                <div class="num">Total Found:<?=$boardCount?></div>
             </div>
         </section>
 
@@ -62,20 +95,40 @@ $searchKeyword = $_GET['searchKeyword'];
             <div class="main_wrap">
                 <div class="main_inner">
                     <section class="main_card container">
-                        <article class="main_cardBox">
+                        <?php
+                        echo $boardSql;
+                            if($boardCount > 0){
+                                foreach($boardResult as $board) {    
+                                    $categoryId = $board['categgoryBoardID'];
+                                
+                                    $likeSql = "SELECT * FROM categoryLike WHERE categgoryBoardID = $categoryId AND userMemberID = '$userMemberId'";
+                                    $likeResult = $connect -> query($likeSql);
+                                    $likeInfo = $likeResult -> num_rows;
+                                    if($likeResult -> num_rows == 1){ 
+                                        $likeInfo = 'show';
+                                    }
+                                
+                                    $commentSql = "SELECT * FROM categoryComment WHERE categgoryBoardID = '$categoryId'";
+                                    $commentResult = $connect -> query($commentSql);
+                                    $commentNum = $commentResult -> num_rows;
+                                    if($commentNum == null){
+                                        $commentNum = '0';
+                                    }
+                        ?>
+                        <article class="main_cardBox" id="category<?=$board['categgoryBoardID']?>" >
                             <div class="main_image">
                                 <figure>
-                                    <a href="#"><img src="../../assets/image/main_image01.jpg" alt="이미지" /></a>
+                                    <a href="#"><img src="../assets/categoryImg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
                                 </figure>
                             </div>
                             <div class="main_info">
                                 <div class="mainInfo_left">
                                     <figure>
-                                        <a href="#"><img src="../../assets/image/profile_ico.png" alt="프로필 이미지" /></a>
+                                        <a href="#"><img src="../assets/userimg/<?=$board['userPhoto']?>" alt="프로필 이미지" /></a>
                                     </figure>
                                     <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
+                                        <h3><a href="#"><?=$board['categgoryTitle']?></a></h3>
+                                        <span><?=$board['userNickName']?></span>
                                     </div>
                                 </div>
 
@@ -83,225 +136,19 @@ $searchKeyword = $_GET['searchKeyword'];
                                     <figure>
                                         <img src="../assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
                                     </figure>
-                                    <span>20</span>
+                                    <span><?=$commentNum?></span>
                                     <figure>
                                         <img src="../assets/image/view_ico.svg" alt="댓글뷰 이미지" />
                                     </figure>
-                                    <span>12</span>
+                                    <span><?=$board['categgoryView']?></span>
                                 </div>
                             </div>
-                            <img src="../assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
+                            <img class="<?=$likeInfo?>" src="../assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
                         </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="../assets/image/main_image02.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="../assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="../assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="/assets/image/main_image03.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="/assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="/assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="/assets/image/main_image04.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="/assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="/assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="/assets/image/main_image05.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="/assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="/assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="/assets/image/main_image06.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="/assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="/assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="/assets/image/main_image07.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="/assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="/assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
-                        <article class="main_cardBox">
-                            <div class="main_image">
-                                <figure>
-                                    <a href="#"><img src="/assets/image/main_image08.jpg" alt="이미지" /></a>
-                                </figure>
-                            </div>
-                            <div class="main_info">
-                                <div class="mainInfo_left">
-                                    <figure>
-                                        <a href="#"><img src="/assets/image/profile_ico.png" alt="프로필 이미지" /></a>
-                                    </figure>
-                                    <div class="mainInfo_title">
-                                        <h3><a href="#">이미지 제목</a></h3>
-                                        <span>크리에이터 이름</span>
-                                    </div>
-                                </div>
-
-                                <div class="mainInfo_right">
-                                    <figure>
-                                        <img src="/assets/image/comment_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>20</span>
-                                    <figure>
-                                        <img src="/assets/image/view_ico.svg" alt="댓글뷰 이미지" />
-                                    </figure>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                            <img src="/assets/image/heartBasic_ico.svg" alt="공감 아이콘" />
-                        </article>
+                        <?php 
+                            } 
+                        } else { echo "<p>검색하신 내용이 없습니다.</p>";}
+                        ?>
                     </section>
                 </div>
             </div>
@@ -313,21 +160,20 @@ $searchKeyword = $_GET['searchKeyword'];
             document.querySelector(".header__bottom").style.display = "none";        
         </script>
         <script>
-            let keyword = '<?=$searchKeyword?>';
-            keywords = keyword.split(' ')
-
+            const searchSelect = document.getElementById("image_sort")
+            searchSelect.selectedIndex = <?=$searchSelect?>;
 
             const searchInputBtn = document.querySelector('#search__input__searchBtn')
             searchInputBtn.addEventListener('click', () =>{
                 let resultText = document.querySelector('#search__inputResult').value
-                const regex = /#[^\s#]+/  
-                console.log(resultText.split( /#[^\s#]+/g )
-                // location.href=`search.php?searchKeyword=${resultText}`;
+                let userVal = searchSelect.selectedIndex;
+                location.href=`search.php?searchKeyword=${resultText}&searchSelect=${userVal}`;
             })
             function show_name(e){
                 let resultText = document.querySelector('#search__inputResult').value
+                let userVal = searchSelect.selectedIndex;
                 if(e.keyCode == 13){   
-                    location.href=`search.php?searchKeyword=${resultText}`;
+                    location.href=`search.php?searchKeyword=${resultText}&searchSelect=${userVal}`;
                 }
             }
         </script>

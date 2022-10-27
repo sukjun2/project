@@ -40,7 +40,6 @@ $userMemberId = $_SESSION['userMemberID'];
                                 JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
                                 JOIN userMember as i ON i.userMemberID = b.userMemberID 
                                 JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
-                                WHERE i.userMemberID = '{$userMemberId}'
                                 GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum}";
 
                                 $boardResult = $connect -> query($boardSql);

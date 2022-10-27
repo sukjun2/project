@@ -55,7 +55,7 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
                                     
                                     echo '<ul>
                                             <li class="bookMark"><a href="../bookmark/bookMark.php">Bookmark</a></li>
-                                            <li class="category"><a href="../category/category.php">Category</a></li>
+                                            <li class="category"><a href="../category/category.php">Pictures</a></li>
                                             <li class="wallpaper"><a href="../category/wallpager.php">Wallpaper</a></li>
                                             <li class="notice"><a href="../board/noticeBoard.php">Notice</a></li>
                                             <li class="feedBack"><a href="../board/feedBackBoard.php">Feedback</a></li>
@@ -109,12 +109,12 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
             searchBtn.addEventListener('click', () =>{
                 console.log()
                 let resultText = document.querySelector('#header__search__input').value
-                location.href=`../search/search.php?searchKeyword=${resultText}`;
+                location.href=`../search/search.php?searchKeyword=${resultText}&searchSelect=0`;
             })
             function show_name(e){
                 let resultText = document.querySelector('#header__search__input').value
                 if(e.keyCode == 13){   
-                    location.href=`../search/search.php?searchKeyword=${resultText}`;
+                    location.href=`../search/search.php?searchKeyword=${resultText}&searchSelect=0`;
                 }
             }
         </script>

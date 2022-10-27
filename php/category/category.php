@@ -30,7 +30,7 @@ $page = 1;
             <div class="main_inner">
                 <section class="bookmark_banner">
                     <div class="banner_inner">
-                        <p>CATEGORY</p>
+                        <p>Best Pictures</p>
                         <div class="banner_udline"></div>
                     </div>
                 </section>
@@ -82,22 +82,15 @@ $page = 1;
                 <section class="category__title container">
                     <h2>CATEGORY</h2>
                     <ul class="category__tag">
-                    <li><a href="/" data-tab-target="#All" class="active">All</a></li>
-                    <?php 
-                        $rankSql = "SELECT categgoryTag, COUNT(categgoryBoardID) AS ranking FROM categoryTag GROUP BY categgoryTag ORDER BY COUNT(categgoryBoardID) DESC LIMIT 5";
-                        $rankResult = $connect -> query($rankSql);
-                        $rankInfo = $rankResult -> fetch_array(MYSQLI_ASSOC);
-                        foreach($rankResult as $rank) {
-                            echo "<li><a href='/' data-tab-target='".$rank['ranking']."' >#".$rank['categgoryTag']."</a></li>";
-                        }
-                    ?>
-                    <!-- <ul class="category__tag">
-                        <li><a href="#" data-tab-target="#All" class="active">All</a></li>
-                        <li><a href="#" data-tab-target="#love">love</a></li>
-                        <li><a href="#" data-tab-target="#pastal">pastal</a></li>
-                        <li><a href="#" data-tab-target="#plants">plants</a></li>
-                        <li><a href="#" data-tab-target="#vintage">vintage</a></li>
-                    </ul> -->
+                        <li><a href="/" data-tab-target="#All" class="active">All</a></li>
+                        <?php 
+                            $rankSql = "SELECT categgoryTag, COUNT(categgoryBoardID) AS ranking FROM categoryTag GROUP BY categgoryTag ORDER BY COUNT(categgoryBoardID) DESC LIMIT 5";
+                            $rankResult = $connect -> query($rankSql);
+                            $rankInfo = $rankResult -> fetch_array(MYSQLI_ASSOC);
+                            foreach($rankResult as $rank) {
+                                echo "<li><a href='/' data-tab-target='".$rank['ranking']."' >#".$rank['categgoryTag']."</a></li>";
+                            }
+                        ?>
                     </ul>
                 </section>
                 <section class="main_card container active">
