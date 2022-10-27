@@ -3,6 +3,7 @@ include "../connect/connect.php";
 include "../connect/session.php";
 $searchKeyword = $_GET['searchKeyword'];
 ?>
+
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -22,7 +23,7 @@ $searchKeyword = $_GET['searchKeyword'];
         
         <section class="search_banner">
             <div class="banner_inner container">
-                <p>SEARCH</p>
+                <p>Search</p>
                 <div class="banner_udline"></div>
             </div>
         </section>
@@ -32,6 +33,7 @@ $searchKeyword = $_GET['searchKeyword'];
                 <div class="search_input">
                     <label for="search" class="ir"></label>
                     <img src="../../assets/image/search_Icon.svg" alt="검색">
+                    <label for="search__inputResult" class="ir"></label>
                     <input onkeypress="show_name(event)" id="search__inputResult" name="search__inputResult" type="text" placeholder="검색어를 입력해주세요." value="<?=$searchKeyword?>" />
                     <button id="search__input__searchBtn">검색</button>
                 </div>
@@ -39,9 +41,7 @@ $searchKeyword = $_GET['searchKeyword'];
             <div class="search_sort container">
                 <select name="image" id="image_sort">
                     <option value="Wallpaper">Wallpaper</option>
-                    <?php
                     
-                    ?>
                     <option value="Photo">Photo</option>
                     <option value="Picture">Picture</option>
                     <?php
@@ -313,16 +313,21 @@ $searchKeyword = $_GET['searchKeyword'];
             document.querySelector(".header__bottom").style.display = "none";        
         </script>
         <script>
-            const searchBtn = document.querySelector('#search__input__searchBtn')
-            searchBtn.addEventListener('click', () =>{
-                console.log()
+            let keyword = '<?=$searchKeyword?>';
+            keywords = keyword.split(' ')
+
+
+            const searchInputBtn = document.querySelector('#search__input__searchBtn')
+            searchInputBtn.addEventListener('click', () =>{
                 let resultText = document.querySelector('#search__inputResult').value
-                location.href=`search.php?searchKeyword=${resultText}`;
+                const regex = /#[^\s#]+/  
+                console.log(resultText.split( /#[^\s#]+/g )
+                // location.href=`search.php?searchKeyword=${resultText}`;
             })
             function show_name(e){
                 let resultText = document.querySelector('#search__inputResult').value
                 if(e.keyCode == 13){   
-                    location.href=`earch.php?searchKeyword=${resultText}`;
+                    location.href=`search.php?searchKeyword=${resultText}`;
                 }
             }
         </script>
