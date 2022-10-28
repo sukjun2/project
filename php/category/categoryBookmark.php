@@ -14,6 +14,8 @@ include "../connect/session.php";
         if($result -> num_rows == 1){
             $sql = "DELETE FROM categoryLike WHERE categgoryBoardID = '$categoryId' AND userMemberID = '$userMemberID'";
             $result = $connect -> query($sql);
+            $sql2 = "UPDATE categoryBoard SET likecate = (SELECT count(categoryLike.categoryLike) FROM categoryLike WHERE categgoryBoardID = '$categoryId' GROUP BY categoryLike.categgoryBoardID) WHERE categgoryBoardID = '$categoryId'";
+            $result2 = $connect -> query($sql2);
             echo json_encode(array("result" => 'good'));
         } else echo json_encode(array("result" => 'bad'));
         
@@ -23,10 +25,12 @@ include "../connect/session.php";
         $categoryId = $_POST['categoryId'];
         $sql = "SELECT * FROM categoryLike WHERE categgoryBoardID = '$categoryId' AND userMemberID = '$userMemberID'";
         $result = $connect -> query($sql);
-
+        
         if($result -> num_rows == 0){
             $sql = "INSERT INTO categoryLike(categgoryBoardID, userMemberID) VALUES('$categoryId', '$userMemberID')";
             $result = $connect -> query($sql);
+            $sql2 = "UPDATE categoryBoard SET likecate = (SELECT count(categoryLike.categoryLike) FROM categoryLike WHERE categgoryBoardID = '$categoryId' GROUP BY categoryLike.categgoryBoardID) WHERE categgoryBoardID = '$categoryId'";
+            $result2 = $connect -> query($sql2);
             echo json_encode(array("result" => "good"));
         } else echo json_encode(array("result" => 'bad'));
         
@@ -75,7 +79,7 @@ include "../connect/session.php";
                                 <em class='blind tagName'>$tagInfo</em>
                                 <div class='main_image'>
                                     <figure>
-                                        <a href='#'><img src='../assets/categoryImg/".$board['categgoryPhoto']."' alt='이미지' /></a>
+                                       <a href='../imgeview/imgview.php?categgoryBoardID=".$board['categgoryBoardID']."'><img src='../assets/categoryimg/".$board['categgoryPhoto']."' alt='이미지' /></a>
                                     </figure>
                                 </div>
                                 <div class='main_info'>

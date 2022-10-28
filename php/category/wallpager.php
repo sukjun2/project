@@ -66,7 +66,7 @@ include "../connect/session.php";
                                 <em class="blind tagName"><?=$tagInfo?></em>
                                 <div class="main_image">
                                     <figure>
-                                        <a href="#"><img src="../assets/categoryImg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
+                                        <a href="../imgeview/imgview.php?categgoryBoardID=<?=$board['categgoryBoardID']?>"><img src="../assets/categoryimg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
                                     </figure>
                                 </div>
                                 <div class="main_info">

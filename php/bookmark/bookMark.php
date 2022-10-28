@@ -37,7 +37,6 @@ $userMemberId = $_SESSION['userMemberID'];
                                 $viewLimit = ($viewNum * $page) - $viewNum;
                                 $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
                                 FROM categoryBoard as b 
-                                JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
                                 JOIN userMember as i ON i.userMemberID = b.userMemberID 
                                 JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
                                 GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum}";
@@ -70,7 +69,7 @@ $userMemberId = $_SESSION['userMemberID'];
                                 <em class="blind tagName"><?=$tagInfo?></em>
                                 <div class="main_image">
                                     <figure>
-                                        <a href="#"><img src="../assets/categoryImg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
+                                        <a href="../imgeview/imgview.php?categgoryBoardID=<?=$board['categgoryBoardID']?>"><img src="../assets/categoryimg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
                                     </figure>
                                 </div>
                                 <div class="main_info">

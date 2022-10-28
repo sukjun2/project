@@ -149,7 +149,7 @@ include "../connect/session.php";
                                  <?php }  
                                         } else { ?>
                                         <div class='board_writeBtn'>
-                                            <a href='#'>글쓰기</a>
+                                            <a href='noticeBoardWrite.php'>글쓰기</a>
                                         </div>
                               <?php } 
                                 } ?>

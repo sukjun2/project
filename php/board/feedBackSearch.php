@@ -156,12 +156,12 @@ include "../connect/session.php";
                                    if($searchBoard == 'noticeBoard'){
                                     if($adminAccount['adminAccount'] == 1){ ?>
                                         <div class='board_writeBtn'>
-                                            <a href='noticeBoardWrite.php'>글쓰기</a>
+                                            <a href='feedBackBoardWrite.php'>글쓰기</a>
                                         </div>
                                  <?php }  
                                         } else { ?>
                                         <div class='board_writeBtn'>
-                                            <a href='#'>글쓰기</a>
+                                            <a href='feedBackBoardWrite.php'>글쓰기</a>
                                         </div>
                               <?php } 
                                 } ?>

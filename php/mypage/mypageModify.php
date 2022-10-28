@@ -93,7 +93,7 @@ include "../connect/session.php";
                 $tagfile .= "<article class='mypage__cardBox'>
                         <div class='cardBox__image'>
                             <figure>
-                                <a href='#'><img src='../assets/categoryImg/".$board['categgoryPhoto']."' alt='이미지' /></a>
+                                <a href='../imgeview/imgview.php?categgoryBoardID=".$board['categgoryBoardID']."'><img src='../assets/categoryimg/".$board['categgoryPhoto']."' alt='이미지' /></a>
                             </figure>
                         </div>
                     </article>";

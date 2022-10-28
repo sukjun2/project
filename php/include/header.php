@@ -82,7 +82,7 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
                                         <div class="profile__nav">
                                             <ul>
                                                 <li><a href="../mypage/mypage.php">내정보</a></li>
-                                                <li><a href="#c">업로드</a></li>
+                                                <li><a href="../upload/upload.php">업로드</a></li>
                                                 <li><a href="../login/logout.php">로그아웃</a></li>
                                             </ul>
                                     </div>

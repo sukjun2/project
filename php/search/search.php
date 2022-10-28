@@ -16,7 +16,6 @@ if($searchSelect == 0){
     FROM categoryBoard as b 
     JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
-    JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
     GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC ";
 } else if ($searchSelect == 1) {
@@ -24,7 +23,6 @@ if($searchSelect == 0){
     FROM categoryBoard as b 
     JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
-    JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
     GROUP BY b.categgoryBoardID ORDER BY b.categgoryView DESC ";
 } else if ($searchSelect == 2) {
@@ -32,10 +30,10 @@ if($searchSelect == 0){
     FROM categoryBoard as b 
     JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
-    JOIN categoryLike as q ON q.categgoryBoardID = b.categgoryBoardID
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
-    GROUP BY b.categgoryBoardID ORDER BY b.categgoryView DESC ";
+    GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
 }
+
 $boardResult = $connect -> query($boardSql);
 $boardCount = $boardResult -> num_rows;
 
@@ -96,7 +94,6 @@ $boardResult = $connect -> query($boardSql);
                 <div class="main_inner">
                     <section class="main_card container">
                         <?php
-                        echo $boardSql;
                             if($boardCount > 0){
                                 foreach($boardResult as $board) {    
                                     $categoryId = $board['categgoryBoardID'];
@@ -118,7 +115,7 @@ $boardResult = $connect -> query($boardSql);
                         <article class="main_cardBox" id="category<?=$board['categgoryBoardID']?>" >
                             <div class="main_image">
                                 <figure>
-                                    <a href="#"><img src="../assets/categoryImg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
+                                    <a href="../imgeview/imgview.php?categgoryBoardID=<?=$board['categgoryBoardID']?>"><img src="../assets/categoryimg/<?=$board['categgoryPhoto']?>" alt="이미지" /></a>
                                 </figure>
                             </div>
                             <div class="main_info">
@@ -176,6 +173,108 @@ $boardResult = $connect -> query($boardSql);
                     location.href=`search.php?searchKeyword=${resultText}&searchSelect=${userVal}`;
                 }
             }
+        </script>
+
+        <script>
+            function heartLike() {
+                const heartBtn = document.querySelectorAll('.main_card .main_cardBox > img');        
+                heartBtn.forEach((heart, num) => {
+                heart.addEventListener('click', () => {
+                    const regex = /[^0-9]/g;	
+                    let categoryId = heart.parentElement.getAttribute('id');
+                    categoryId = categoryId.replace(regex, "");
+                    if(heart.classList.contains('show')){
+                    $.ajax({
+                        url: "searchMod.php",
+                        method: "POST",
+                        dataType: "json",
+                        data: {
+                            "type": "bookmarkRemove",
+                            "categoryId": categoryId
+                        },
+                        success: function(data) {
+                            if(data.result == 'good'){ 
+                                heart.classList.remove('show');
+                            }
+                        },
+                        error: function(request, status, error){
+                            console.log("request" + request);
+                            console.log("status" + status);
+                            console.log("error" + error);
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        url: "searchMod.php",
+                        method: "POST",
+                        dataType: "json",
+                        data: {
+                            "type": "bookmarkAdd",
+                            "categoryId": categoryId
+                        },
+                        success: function(data) {
+                            if(data.result == 'good'){
+                                heart.classList.add('show');
+                            }
+                        },
+                        error: function(request, status, error){
+                            console.log("request" + request);
+                            console.log("status" + status);
+                            console.log("error" + error);
+                        }
+                    })
+                }
+                });
+            });
+            }
+            heartLike();
+            let loading = false;
+            let pagecount = 2;
+            function next_load(){
+
+                $.ajax({
+                        method: "POST",
+                        url:"searchMod.php",
+                        data : {
+                            "type": "categoryscroll",
+                            'page': pagecount,
+                            'searchKeyword': '<?=$searchSelect?>',
+                        },
+                        dataType: "json",
+                        success: function(data)
+                        {
+                            if(data.result == 'good'){
+                                pagecount++;
+                                $('.main_card').append(data.page)                            
+                                loading = false;    //실행 가능 상태로 변경
+                                heartLike();
+                            }
+                            else
+                            {
+                                console.log('failed');
+                            }
+                        },error: function(request, status, error){
+                            console.log("request" + request);
+                            console.log("status" + status);
+                            console.log("error" + error);
+                        }
+                    });
+            }
+
+            $(window).scroll(function(){
+                if($(window).scrollTop()+200>=$(document).height() - $(window).height())
+                {
+                    if(!loading)    //실행 가능 상태라면?
+                    {
+                        loading = true; //실행 불가능 상태로 변경
+                        next_load(); 
+                    }
+                    else            //실행 불가능 상태라면?
+                    {
+                        // console.log('다음페이지를 로딩중입니다.');  
+                    }
+                }
+            });
         </script>
     </body>
 </html>
