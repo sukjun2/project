@@ -205,8 +205,9 @@ img {
 
 /* header__bottom */
 .header__bottom {
-    padding: 10px 0;
-    border-bottom: 1px solid #dcdcdc;
+    padding-top: 10px;
+    border-top: 1px solid #dcdcdc;
+    margin-top: 10px;
 }
 .header__bottom .headerBottom__inner {
     display: flex;
