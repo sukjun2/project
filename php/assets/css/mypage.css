@@ -145,7 +145,7 @@ textarea {
 .info__personal .info__desc .gender {
     font-family: "GmarketSans";
     font-size: 16px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     color: #aaa;
 }
 .info__personal .info__desc .phone {
@@ -163,7 +163,7 @@ textarea {
 .info__personal .info__desc .personal_email {
     height: 18px;
     font-size: 16px;
-    margin-bottom: 25px;
+    margin-bottom: 21px;
     color: #aaa;
 }
 .info__personal .info__desc .personal_upload {
@@ -406,7 +406,7 @@ textarea {
         width: 75%;
     }
     .mypage__info .info__personal .info__desc input {
-        margin-bottom: 20px;
+        margin-bottom: 18px;
     }
     .mypage__info .info__personal .info__desc .personal_email {
         margin-bottom: 23px;
@@ -490,7 +490,7 @@ textarea {
         font-size: 14px;
     }
     .mypage__info .info__personal .info__desc .personal_email {
-        margin-bottom: 25px;
+        margin-bottom: 22px;
     }
     .info__personal .info__desc .personal_upload {
         font-size: 14px;
