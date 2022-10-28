@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>📨 Upload Modify</title>
+
+        <!-- CSS Link -->
+        <link rel="stylesheet" href="../assets/css/common.css" />
+        <link rel="stylesheet" href="../assets/css/reset.css" />
+        <link rel="stylesheet" href="../assets/css/fonts.css" />
+        <link rel="stylesheet" href="../assets/css/upload.css" />
+
+        <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+        <style>
+            .tagify__tag + .tagify__input::before {
+                opacity: 0;
+            }
+
+            .tagify:not(.tagify--noTags) {
+                --placeholder-color: transparent;
+                --placeholder-color-focus: transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <header id="header">
+            <div class="header__wrap">
+                <div class="header__inner">
+                    <!-- ham -->
+                    <div class="toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <!-- header__top -->
+                    <div class="header__top">
+                        <div class="headerTop__inner container">
+                            <!-- logo -->
+                            <div class="logo">
+                                <h1>
+                                    <a href="#c">IT.<em>D</em></a>
+                                </h1>
+                            </div>
+
+                            <!-- nav -->
+                            <nav class="header__nav">
+                                <ul>
+                                    <li class="active"><a href="#c">Bookmark</a></li>
+                                    <li><a href="#c">Category</a></li>
+                                    <li><a href="#c">Wallpaper</a></li>
+                                    <li><a href="#c">Notice</a></li>
+                                    <li><a href="#c">Feedback</a></li>
+                                </ul>
+                            </nav>
+
+                            <!-- 로그인 안했을 때 -->
+                            <!-- <a href="#c">Log In</a> -->
+
+                            <!-- 로그인 했을 때 -->
+                            <div class="profile">
+                                <figure class="profile__img">
+                                    <img src="/assets/image/main_image01.jpg" alt="프로필 이미지" />
+                                </figure>
+                                <div class="profile__nav">
+                                    <ul>
+                                        <li><a href="#c">내정보</a></li>
+                                        <li><a href="#c">업로드</a></li>
+                                        <li><a href="#c">로그아웃</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //header__top -->
+                    <div class="header__bottom">
+                        <div class="headerBottom__inner container">
+                            <div class="header__search">
+                                <input type="text" placeholder="검색어를 입력해주세요." />
+                            </div>
+                            <button>검색</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header -->
+
+        <main id="main">
+            <section id="upload" class="uplaod__wrap">
+                <div class="upload__inner container">
+                    <div class="upload__title">
+                        <fieldset>
+                            <label for="uploadTitle" class="blind">제목</label>
+                            <input type="text" id="uploadTitle" class="uploadTitle" name="uploadTitle" placeholder="제목을 입력해주세요." />
+                        </fieldset>
+                    </div>
+                    <!-- upload__title 업로드 페이지 제목 입력란 -->
+
+                    <div class="upload__write">
+                        <fieldset>
+                            <label for="uploadWrite" class="blind">내용</label>
+                            <textarea name="uploadWrite" id="uploadWrite" class="uploadWrite" rows="20" placeholder="내용을 입력해주세요."></textarea>
+                        </fieldset>
+                    </div>
+                    <!-- upload__title 업로드 페이지 내용 입력란 -->
+
+                    <div class="upload__image">
+                        <label for="uploadBasicImage" class="blind">이미지 업로드</label>
+                        <input type="file" name="uploadBasicImage" id="uploadBasicImage" class="uploadBasicImage" accept=".jpg, .jpeg, .png, .gif" placeholder="jpg, gif, png 파일만 넣어주세요!" />
+                    </div>
+
+                    <div class="upload__tag">
+                        <input name="input" placeholder="태그를 입력해주세요!" value="" data-blacklist=".NET,PHP" autofocus />
+                        <!-- //태그 입력란 -->
+                    </div>
+
+                    <div class="upload__btn">
+                        <label for="uploadBtn" class="blind">업로드 버튼</label>
+                        <button type="button" name="uploadBtn" id="uploadBtn" class="uploadBtn"><a href="#c">업로드</a></button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="footer">
+            <div class="footer_inner">
+                <div class="footer_wrap">
+                    <h2><em>IT.D</em> | Free Image Download Site</h2>
+                    <div class="footer_bottom container">
+                        <div class="footer_left">
+                            <p>
+                                The creator : 전보연, 송성희, 김석준, 이중호 <br />
+                                경기도광역시 단원구 고잔동 535-2번지 601호 코스모프라자 라인컴퓨터아트학원
+                            </p>
+                            <a href="#">이용약관</a>
+                            <a href="#">개인정보 처리방침</a>
+                            <a href="#">검색결과 수집정책</a>
+                            <figure class="footer_sns">
+                                <a href="#"><img src="/assets/image/footer_sns01.png" alt="피그마 링크" /></a>
+                                <a href="#"><img src="/assets/image/footer_sns02.png" alt="닷홈 링크" /></a>
+                            </figure>
+                        </div>
+                        <div class="footer_right">
+                            <article class="footer_menu">
+                                <h3>카테고리</h3>
+                                <ul>
+                                    <li><a href="#">조회수 순위</a></li>
+                                    <li><a href="#">다운로드 순위</a></li>
+                                    <li><a href="#">반응 순위</a></li>
+                                    <li><a href="#">댓글 순위</a></li>
+                                </ul>
+                            </article>
+                            <article class="footer_menu">
+                                <h3>메뉴</h3>
+                                <ul>
+                                    <li><a href="#">즐겨찾기</a></li>
+                                    <li><a href="#">카테고리</a></li>
+                                    <li><a href="#">배경화면</a></li>
+                                    <li><a href="#">피드백</a></li>
+                                </ul>
+                            </article>
+                            <article class="footer_menu">
+                                <h3>고객센터</h3>
+                                <ul>
+                                    <li><a href="#">공지사항</a></li>
+                                    <li><a href="#">피드백</a></li>
+                                </ul>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- // footer -->
+
+        <!-- jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/@yaireo/tagify"></script>
+        <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+
+        <!-- ham -->
+        <script>
+            $(".toggle").click(function () {
+                $(this).toggleClass("active");
+            });
+
+            const hamBtn = document.querySelector(".toggle");
+            const nav = document.querySelector(".headerTop__inner nav");
+
+            hamBtn.addEventListener("click", () => {
+                nav.classList.toggle("show");
+            });
+        </script>
+        <script>
+            const heartBtn = document.querySelectorAll(".main_card .main_cardBox > img");
+            console.log(heartBtn);
+
+            heartBtn.forEach((heart, num) => {
+                // console.log(num);
+                heart.addEventListener("click", () => {
+                    heartBtn[num].classList.toggle("show");
+                });
+            });
+
+            const profileBox = document.querySelector(".profile"); // 프로필 박스
+            const profileImg = document.querySelector(".profile__img"); // 프로필 이미지
+            const profileNav = profileBox.querySelector(".profile__nav"); // 프로필 박스 네이게이션
+            // console.log(profileNav); 프로필 박스, 프로필 이미지, 프로필 박스 네비게이션 모두 확인 완료
+
+            profileBox.addEventListener("mouseenter", () => {
+                profileNav.style.display = "inline-block";
+            });
+            profileNav.addEventListener("mouseleave", () => {
+                profileNav.style.display = "none";
+            });
+            // header script
+
+            let inputElm = document.querySelector("input[name=input]");
+
+            // 화이트 리스트 : 해당 문자만 태그로 추가 가능
+            let whitelist = ["배경화면", "사진", "첫 글", "이미지", "하늘", "바다", "빈티지"];
+
+            // initialize Tagify
+            var tagify = new Tagify(inputElm, {
+                // enforceWhitelist: true, // 화이트리스트에서 허용된 태그만 사용
+                // whitelist: whitelist, // 화이트 리스트 배열. 화이트 리스트를 등록하면 자동으로 드롭다운 메뉴가 생긴다
+            });
+
+            // 만일 모든 태그 지우기 기능 버튼을 구현한다면
+            // document.querySelector("버튼").addEventListener("click", tagify.removeAllTags.bind(tagify));
+
+            // tagify 전용 이벤트 리스터. 참조 : https://github.com/yairEO/tagify#events
+            tagify
+                .on("add", onAddTag) // 태그가 추가되면
+                .on("remove", onRemoveTag) // 태그가 제거되면
+                .on("input", onInput) // 태그가 입력되고 있을 경우
+                .on("invalid", onInvalidTag) // 허용되지 않는 태그일 경우
+                .on("click", onTagClick) // 해시 태그 블럭을 클릭할 경우
+                .on("focus", onTagifyFocusBlur) // 포커스 될 경우
+                .on("blur", onTagifyFocusBlur) // 반대로 포커스를 잃을 경우
+
+                .on("edit:start", onTagEdit) // 입력된 태그 수정을 할 경우
+
+                .on("dropdown:hide dropdown:show", (e) => console.log(e.type)) // 드롭다운 메뉴가 사라질경우
+                .on("dropdown:select", onDropdownSelect); // 드롭다운 메뉴에서 아이템을 선택할 경우
+
+            // tagify 전용 이벤트 리스너 제거 할떄
+            tagify.off("add", onAddTag);
+
+            // 이벤트 리스너 콜백 메소드
+            function onAddTag(e) {
+                console.log("onAddTag: ", e.detail);
+                console.log("original input value: ", inputElm.value);
+            }
+
+            // tag remvoed callback
+            function onRemoveTag(e) {
+                console.log("onRemoveTag:", e.detail, "tagify instance value:", tagify.value);
+            }
+
+            function onTagEdit(e) {
+                console.log("onTagEdit: ", e.detail);
+            }
+
+            // invalid tag added callback
+            function onInvalidTag(e) {
+                console.log("onInvalidTag: ", e.detail);
+            }
+
+            // invalid tag added callback
+            function onTagClick(e) {
+                console.log(e.detail);
+                console.log("onTagClick: ", e.detail);
+            }
+
+            function onTagifyFocusBlur(e) {
+                console.log(e.type, "event fired");
+            }
+
+            function onDropdownSelect(e) {
+                console.log("onDropdownSelect: ", e.detail);
+            }
+
+            function onInput(e) {
+                console.log("onInput: ", e.detail);
+
+                tagify.loading(true); // 태그 입력하는데 우측에 loader 애니메이션 추가
+                tagify.loading(false); // loader 애니메이션 제거
+
+                tagify.dropdown.show(e.detail.value); // 드롭다운 메뉴 보여주기
+                tagify.dropdown.hide(); // // 드롭다운 제거
+            }
+        </script>
+    </body>
+</html>
