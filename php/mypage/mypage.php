@@ -1,10 +1,25 @@
 <?php
 include "../connect/connect.php";
 include "../connect/session.php";
+if( !isset($_SESSION['userMemberID']) ){ 
+    echo "<script>window.alert('잘못된접근입니다.'); location.href = '../main/main.php';</script>";
+}
 $userMemberId = $_SESSION['userMemberID'];
 $userSql = "SELECT * FROM userMember WHERE userMemberID = '$userMemberId'";
 $userResult = $connect -> query($userSql);
 $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
+
+$page = 1;
+$viewNum = 8;
+
+$viewLimit = ($viewNum * $page) - $viewNum;
+$boardSql = "SELECT * FROM categoryBoard as b JOIN userMember as m ON b.userMemberID = m.userMemberID  WHERE m.userMemberID = '$userMemberId' ORDER BY b.categgoryBoardID DESC ";
+$boardResult = $connect -> query($boardSql);
+$boardcount = $boardResult -> num_rows;
+$boardSql .= "LIMIT {$viewLimit}, {$viewNum} ";
+$boardResult = $connect -> query($boardSql);
+
+
 ?>
 <!DOCTYPE html>
 <html lang='ko'>
@@ -104,7 +119,7 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
                                 </form>
                             </div>
                             <div class='personal_email'><?=$userInfo['userEmail']?></div>
-                            <div class='personal_upload'>0</div>
+                            <div class='personal_upload'><?=$boardcount?></div>
                         </div>
                     </div>
                 </div>
@@ -164,12 +179,6 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
                 <h1 class='card__title'>UPLOAD POSTS</h1>
                 <div class='mypage__inner'>
                 <?php 
-                        $page = 1;
-                        $viewNum = 8;
-
-                        $viewLimit = ($viewNum * $page) - $viewNum;
-                        $boardSql = "SELECT * FROM categoryBoard as b JOIN userMember as m ON b.userMemberID = m.userMemberID  WHERE m.userMemberID = '$userMemberId' ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum} ";
-                        $boardResult = $connect -> query($boardSql);
                         foreach($boardResult as $board) {    
                 ?>
                     <article class='mypage__cardBox'>
@@ -558,13 +567,14 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
                 let pagecount = 2;
                 function next_load(){
                     $.ajax({
-                            method: "POST",
                             url:"mypageModify.php",
+                            method: "POST",
+                            dataType: "json",
                             data : {
                                 "type": "categoryscroll",
-                                'page': pagecount,
+                                "page": pagecount,
                             },
-                            dataType: "json",
+                            
                             success: function(data)
                             {
                                 if(data.result == 'good'){

@@ -1,5 +1,5 @@
 #main {
-    margin-top: 120px;
+    margin-top: 110px;
     margin-bottom: 50px;
 }
 #main .main_wrap {
@@ -11,7 +11,6 @@
 .main_card {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 .main_card:last-child {
 }
@@ -19,6 +18,7 @@
     position: relative;
     width: 24%;
     /* border: 1px solid #f5f5f5; */
+    margin: 0 0.5%;
     margin-bottom: 20px;
     box-shadow: 0 0 4px #dcdcdc;
 }
@@ -89,19 +89,13 @@
 }
 .mainInfo_right figure {
     display: flex;
-    width: 15px;
-    height: 13px;
+    width: auto;
+    height: auto;
     margin-left: 5px;
 }
 
 /* 밑줄 효과 */
-.mainInfo_right figure {
-    display: flex;
-    width: 15px;
-    height: 15px;
-    margin-left: 5px;
-}
-*/ .mainInfo_right figure img {
+.mainInfo_right figure img {
 }
 .mainInfo_right span {
     color: #aaa;

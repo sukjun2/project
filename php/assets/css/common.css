@@ -25,6 +25,7 @@ img {
     right: 0;
     background-color: #fff;
     z-index: 999;
+    border-bottom: 1px solid #dcdcdc;
 }
 #header .header_wrap {
 }
@@ -72,7 +73,7 @@ img {
 /* header__top */
 .header__top {
     padding: 10px 0;
-    border-bottom: 1px solid #dcdcdc;
+    /* border-bottom: 1px solid #dcdcdc; */
 }
 .header__top .headerTop__inner {
     box-sizing: border-box;
@@ -205,9 +206,8 @@ img {
 
 /* header__bottom */
 .header__bottom {
-    padding-top: 10px;
-    border-top: 1px solid #dcdcdc;
-    margin-top: 10px;
+    padding: 10px 0;
+    /* border-bottom: 1px solid #dcdcdc; */
 }
 .header__bottom .headerBottom__inner {
     display: flex;

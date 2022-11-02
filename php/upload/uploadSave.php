@@ -1,7 +1,9 @@
 <?php
     include "../connect/connect.php";
     include "../connect/session.php";
-
+    if( !isset($_SESSION['userMemberID']) ){ 
+        echo "<script>window.alert('잘못된접근입니다.'); location.href = '../main/main.php';</script>";
+        }
     $uploadImgFile = $_FILES['uploadBasicImage'];
     $uploadImgSize = $_FILES['uploadBasicImage']['size'];
     $uploadImgType = $_FILES['uploadBasicImage']['type'];
@@ -9,10 +11,12 @@
     $uploadImgTmp = $_FILES['uploadBasicImage']['tmp_name'];
     $uploadTitle = $_POST['uploadTitle'];
     $uploadWrite = $_POST['uploadWrite'];
+    $uploadWrite = nl2br($_POST['uploadWrite']);
+    
     $uploadTags = $_POST['inputHiden'];
-    $uploadTag = explode( '#', $uploadTags );
+    $uploadTag = explode( '@^@&@!', $uploadTags );
     $uploadTagCount = count($uploadTag);
-
+    
     $cateview = 1;
     $regTime = time();
     $userMemberID = $_SESSION['userMemberID'];

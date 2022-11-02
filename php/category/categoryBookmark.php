@@ -50,7 +50,7 @@ include "../connect/session.php";
 
         if($page <= $categoryCount){
             $viewLimit = ($viewNum * $page) - $viewNum;
-            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView FROM categoryBoard as b JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID JOIN userMember as i ON i.userMemberID = b.userMemberID GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum};";
+            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView FROM categoryBoard as b JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID JOIN userMember as i ON i.userMemberID = b.userMemberID GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum};";
             $boardResult = $connect -> query($boardSql);
             $tagfile = '';
             foreach($boardResult as $board) {    
@@ -85,10 +85,10 @@ include "../connect/session.php";
                                 <div class='main_info'>
                                     <div class='mainInfo_left'>
                                         <figure>
-                                            <a href='#'><img src='../assets/userimg/".$board['userPhoto']."' alt='프로필 이미지' /></a>
+                                            <a href='../mypage/userpage.php?userMemberID=".$board['userMemberID']."'><img src='../assets/userimg/".$board['userPhoto']."' alt='프로필 이미지' /></a>
                                         </figure>
                                         <div class='mainInfo_title'>
-                                            <h3><a href='#'>".$board['categgoryTitle']."</a></h3>
+                                            <h3><a href='../imgeview/imgview.php?categgoryBoardID=".$board['categgoryBoardID']."'>".$board['categgoryTitle']."</a></h3>
                                             <span>".$board['userNickName']."</span>
                                         </div>
                                     </div>

@@ -44,7 +44,7 @@ include "../connect/session.php";
                                      case 'title' :
                                          $sql .= "WHERE b.boardTitle LIKE '%{$searchKeyword}%' ORDER BY ${searchBoardId} DESC ";
                                          break;
-                                     case 'content' :
+                                     case 'contents' :
                                          $sql .= "WHERE b.boardContents LIKE '%{$searchKeyword}%' ORDER BY ${searchBoardId} DESC ";
                                          break;
                                      case 'name' :
@@ -65,7 +65,7 @@ include "../connect/session.php";
 
                             <p>총 <?= $boardCount ?> 개의 게시글이 있습니다.</p>
                             <div class="board_search"> 
-                                 <form action='boardSearch.php' name='boardSearch' method='get'>
+                                 <form action='feedBackSearch.php' name='feedBackSearch' method='get'>
                                             <fieldset>
                                                 <select name='searchOption' id='searchOption'>
                                                     <option value='title'>제목</option>

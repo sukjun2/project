@@ -44,7 +44,7 @@ include "../connect/session.php";
                                      case 'title' :
                                          $sql .= "WHERE b.boardTitle LIKE '%{$searchKeyword}%' ORDER BY ${searchBoardId} DESC ";
                                          break;
-                                     case 'content' :
+                                     case 'contents' :
                                          $sql .= "WHERE b.boardContents LIKE '%{$searchKeyword}%' ORDER BY ${searchBoardId} DESC ";
                                          break;
                                      case 'name' :

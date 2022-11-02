@@ -40,27 +40,25 @@ include "../connect/session.php";
 
     if($type == "categoryscroll"){
         $page = $_POST['page'];
-        $searchSelect = $_POST['searchKeyword'];
+        $searchKeyword = $_POST['searchKeyword'];
+        $searchSelect = $_POST['searchSelect'];
         $viewNum = 8;
         $viewLimit = ($viewNum * $page) - $viewNum;
         if($searchSelect == 0){
-            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemBerID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
             FROM categoryBoard as b 
-            JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
             JOIN userMember as i ON i.userMemberID = b.userMemberID 
             WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
             GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC ";
         } else if ($searchSelect == 1) {
-            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemBerID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
             FROM categoryBoard as b 
-            JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
             JOIN userMember as i ON i.userMemberID = b.userMemberID 
             WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
             GROUP BY b.categgoryBoardID ORDER BY b.categgoryView DESC ";
         } else if ($searchSelect == 2) {
-            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemBerID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
             FROM categoryBoard as b 
-            JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
             JOIN userMember as i ON i.userMemberID = b.userMemberID 
             WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
             GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
@@ -69,8 +67,6 @@ include "../connect/session.php";
         $boardResult = $connect -> query($boardSql);
         $boardCount = $boardResult -> num_rows;
         
-        
-        
 
         if($page <= $boardCount){
             $boardSql .= "LIMIT {$viewLimit}, {$viewNum}";
@@ -78,7 +74,7 @@ include "../connect/session.php";
             $tagfile = '';
             foreach($boardResult as $board) {    
                 $categoryId = $board['categgoryBoardID'];
-                                
+                
                 $likeSql = "SELECT * FROM categoryLike WHERE categgoryBoardID = $categoryId AND userMemberID = '$userMemberId'";
                 $likeResult = $connect -> query($likeSql);
                 $likeInfo = $likeResult -> num_rows;
@@ -102,10 +98,10 @@ include "../connect/session.php";
                                 <div class='main_info'>
                                     <div class='mainInfo_left'>
                                         <figure>
-                                            <a href='#'><img src='../assets/userimg/".$board['userPhoto']."' alt='프로필 이미지' /></a>
+                                            <a href='../mypage/userpage.php?userMemberID=".$board['userMemberID']."'><img src='../assets/userimg/".$board['userPhoto']."' alt='프로필 이미지' /></a>
                                         </figure>
                                         <div class='mainInfo_title'>
-                                            <h3><a href='#'>".$board['categgoryTitle']."</a></h3>
+                                            <h3><a href='../imgeview/imgview.php?categgoryBoardID=".$board['categgoryBoardID']."'>".$board['categgoryTitle']."</a></h3>
                                             <span>".$board['userNickName']."</span>
                                         </div>
                                     </div>

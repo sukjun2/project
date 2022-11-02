@@ -1,9 +1,12 @@
 <?php
     include "../connect/connect.php";
     include "../connect/session.php";
+    if( !isset($_SESSION['userMemberID']) ){ 
+        echo "<script>window.alert('잘못된접근입니다.'); location.href = '../main/main.php';</script>";
+        }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -54,6 +57,7 @@
                             <div class="upload__image">
                                 <label for="uploadBasicImage" class="blind">이미지 업로드</label>
                                 <input type="file" name="uploadBasicImage" id="uploadBasicImage" class="uploadBasicImage" accept=".jpg, .jpeg, .png, .gif" placeholder="jpg, gif, png 파일만 넣어주세요!" />
+                                <span class="upload__image__desc" id="upload__image__desc"></span>
                             </div>
 
                             <div class="upload__tag">
@@ -168,6 +172,21 @@
                 uploadBtn.addEventListener("click", () => {
                     uploadChecks()
                 });
+                
+                function readImage(input) {
+                    // 인풋 태그에 파일이 있는 경우
+                    if(input.files && input.files[0]) {
+                        const previewImage = document.getElementById("upload__image__desc");
+                        previewImage.innerText = input.files[0].name;
+                    }
+                }
+
+                // input file에 change 이벤트 부여
+                const inputImage = document.getElementById("uploadBasicImage")
+                inputImage.addEventListener("change", e => {
+                    readImage(e.target)
+                })
+
                 function uploadChecks() {
                     // e.preventDefault();
                     let uploadFile = document.querySelector("#uploadBasicImage");
@@ -181,7 +200,7 @@
                         uploadWrite.value = " ";
                     }
                     uploadTags.forEach((e,i) => {
-                        uploadTagBox[i] = e.getAttribute('title')+'#';
+                        uploadTagBox[i] = e.getAttribute('title')+'@^@&@!';
                     });
                     
                     uploadTagInput.value = uploadTagBox.join('');

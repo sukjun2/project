@@ -6,6 +6,7 @@
 .view__inner .view__header {
 	border-bottom: 1px solid #dcdcdc;
 	padding-bottom: 20px;
+	position: relative;
 }
 .view__inner .view__header .view__title {
 	font-size: 18px;
@@ -18,6 +19,16 @@
 .view__inner .view__header .view__info .view_count img {
 	width: 15px;
 	height: 12px;
+}
+.view__inner .view__header .view__btn {
+	position: absolute;
+	right: 5px;
+	bottom: 20px;
+}
+.view__inner .view__header .view__btn button {
+	font-size: 14px;
+	color: #aaa;
+	margin-left: 10px;
 }
 
 .view__inner .view__contents {
@@ -194,10 +205,12 @@ textarea {
 	box-sizing: border-box;
 }
 .userIcon {
+	border-radius: 50%;
 	width: 54px;
 	height: 50px;
 }
 .userIcon img {
+	border-radius: 50%;
 	width: 100%;
 	height: 100%;
 }
@@ -271,6 +284,7 @@ textarea {
 }
 .userComments__name {
 	margin-left: 10px;
+	position: relative;
 }
 .userComments__name a {
 	font-weight: 700;
@@ -280,16 +294,19 @@ textarea {
 	color: #666666;
 }
 .userComments__name p {
-	text-align: left !important;
-	margin: 0 !important;
-	font-weight: 500 !important;
-	font-size: 12px !important;
-	color: #999999 !important;
+	text-align: left;
+	margin: 0;
+	font-weight: 500;
+	font-size: 12px;
+	color: #999999;
+	position: absolute;
+	bottom: -20px;
+	width: 80px;
 }
 .userComments__like {
 	display: flex;
 	margin-left: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 3px;
 	align-items: center;
 }
 .userComments__like img {

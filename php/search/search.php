@@ -12,23 +12,20 @@ $page = 1;
 $viewNum = 8;
 $viewLimit = ($viewNum * $page) - $viewNum;
 if($searchSelect == 0){
-    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
     FROM categoryBoard as b 
-    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
     GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC ";
 } else if ($searchSelect == 1) {
-    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
     FROM categoryBoard as b 
-    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
     GROUP BY b.categgoryBoardID ORDER BY b.categgoryView DESC ";
 } else if ($searchSelect == 2) {
-    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
     FROM categoryBoard as b 
-    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID 
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
     GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
@@ -97,7 +94,7 @@ $boardResult = $connect -> query($boardSql);
                             if($boardCount > 0){
                                 foreach($boardResult as $board) {    
                                     $categoryId = $board['categgoryBoardID'];
-                                
+
                                     $likeSql = "SELECT * FROM categoryLike WHERE categgoryBoardID = $categoryId AND userMemberID = '$userMemberId'";
                                     $likeResult = $connect -> query($likeSql);
                                     $likeInfo = $likeResult -> num_rows;
@@ -121,10 +118,10 @@ $boardResult = $connect -> query($boardSql);
                             <div class="main_info">
                                 <div class="mainInfo_left">
                                     <figure>
-                                        <a href="#"><img src="../assets/userimg/<?=$board['userPhoto']?>" alt="프로필 이미지" /></a>
+                                        <a href="../mypage/userpage.php?userMemberID=<?=$board['userMemberID']?>"><img src="../assets/userimg/<?=$board['userPhoto']?>" alt="프로필 이미지" /></a>
                                     </figure>
                                     <div class="mainInfo_title">
-                                        <h3><a href="#"><?=$board['categgoryTitle']?></a></h3>
+                                        <h3><a href="../imgeview/imgview.php?categgoryBoardID=<?=$board['categgoryBoardID']?>"><?=$board['categgoryTitle']?></a></h3>
                                         <span><?=$board['userNickName']?></span>
                                     </div>
                                 </div>
@@ -238,7 +235,8 @@ $boardResult = $connect -> query($boardSql);
                         data : {
                             "type": "categoryscroll",
                             'page': pagecount,
-                            'searchKeyword': '<?=$searchSelect?>',
+                            'searchSelect': '<?=$searchSelect?>',
+                            'searchKeyword': '<?=$searchKeyword?>',
                         },
                         dataType: "json",
                         success: function(data)

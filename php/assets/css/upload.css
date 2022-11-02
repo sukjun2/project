@@ -137,6 +137,8 @@ textarea {
 .upload__image {
 	border-bottom: 1px solid #dcdcdc;
 	padding: 10px 0;
+	display: flex;
+	align-items: center;
 }
 .upload__image > input {
 	cursor: pointer;
@@ -181,7 +183,10 @@ textarea {
 .upload__image > input::file-selector-button {
 	display: none;
 }
-
+.upload__image__desc {
+	color: #555;
+	font-size: 12px;
+}
 @media (max-width: 1220px) {
 	.upload__inner.container {
 		width: 94%;
