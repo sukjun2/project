@@ -56,7 +56,7 @@ $userInfo = $userResult -> fetch_array(MYSQLI_ASSOC);
                                     echo '<ul>
                                             <li class="bookMark"><a href="../bookmark/bookMark.php">Bookmark</a></li>
                                             <li class="category"><a href="../category/category.php">Pictures</a></li>
-                                            <li class="wallpaper"><a href="../category/wallpaper.php">Wallpaper</a></li>
+                                            <li class="wallpaper"><a href="../category/Wallpaper.php">Wallpaper</a></li>
                                             <li class="notice"><a href="../board/noticeBoard.php">Notice</a></li>
                                             <li class="feedBack"><a href="../board/feedBackBoard.php">Feedback</a></li>
                                         </ul>';
