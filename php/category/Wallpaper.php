@@ -37,7 +37,7 @@ include "../connect/session.php";
                                 $viewNum = 8;
 
                                 $viewLimit = ($viewNum * $page) - $viewNum;
-                                $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView FROM categoryBoard as b JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID JOIN userMember as i ON i.userMemberID = b.userMemberID WHERE t.categgoryTag = 'wallpaper' OR t.categgoryTag = '배경화면' ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum}";
+                                $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView FROM categoryBoard as b JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID JOIN userMember as i ON i.userMemberID = b.userMemberID WHERE t.categgoryTag = 'wallpaper' OR t.categgoryTag = '배경화면' GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum}";
                                 $boardResult = $connect -> query($boardSql);
                                 foreach($boardResult as $board) {    
                                     $categoryId = $board['categgoryBoardID'];
@@ -97,7 +97,7 @@ include "../connect/session.php";
                     </div>
                 </div>
             </main>
-        <!-- main --
+        <!-- main -- -->
 
 		<?php include "../include/footer.php" ?>
 		<!-- // footer -->

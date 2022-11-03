@@ -14,7 +14,7 @@
     $uploadTags = $_POST['inputHiden'];
     $uploadId = $_POST['inputHidenID'];
     $uploadWrite = nl2br($uploadWrite);
-    $uploadTag = explode( '@^@&@!@@@!', $uploadTags );
+    $uploadTag = explode( '@^@&@!', $uploadTags );
     $uploadTagCount = count($uploadTag);
 
    

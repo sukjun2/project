@@ -29,6 +29,13 @@ if($searchSelect == 0){
     JOIN userMember as i ON i.userMemberID = b.userMemberID 
     WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
     GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
+} else if ($searchSelect == 3) {
+    $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+    FROM categoryBoard as b 
+    JOIN userMember as i ON i.userMemberID = b.userMemberID 
+    JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID
+    WHERE t.categgoryTag LIKE '{$searchKeyword}'
+    GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
 }
 
 $boardResult = $connect -> query($boardSql);
@@ -80,6 +87,7 @@ $boardResult = $connect -> query($boardSql);
                     <option value="date">날짜별</option>
                     <option value="viewcount">조회수</option>
                     <option value="like">좋아요수</option>
+                    <option value="tag">태그</option>
                 </select>
                 <div class="num">Total Found:<?=$boardCount?></div>
             </div>

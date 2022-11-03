@@ -62,6 +62,13 @@ include "../connect/session.php";
             JOIN userMember as i ON i.userMemberID = b.userMemberID 
             WHERE b.categgoryTitle LIKE '%{$searchKeyword}%'
             GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
+        } else if ($searchSelect == 3) {
+            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle, i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView 
+            FROM categoryBoard as b 
+            JOIN userMember as i ON i.userMemberID = b.userMemberID 
+            JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID
+            WHERE t.categgoryTag LIKE '{$searchKeyword}'
+            GROUP BY b.categgoryBoardID ORDER BY b.likecate DESC, b.categgoryBoardID DESC ";
         }
         
         $boardResult = $connect -> query($boardSql);

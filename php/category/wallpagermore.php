@@ -50,7 +50,7 @@ include "../connect/session.php";
 
         if($page <= $categoryCount){
             $viewLimit = ($viewNum * $page) - $viewNum;
-            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView FROM categoryBoard as b JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID JOIN userMember as i ON i.userMemberID = b.userMemberID WHERE t.categgoryTag = 'wallpager' OR t.categgoryTag = '배경화면' GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum}";
+            $boardSql = "SELECT b.categgoryBoardID, b.categgoryTitle,i.userMemberID, i.userPhoto, i.userNickName, b.categgoryPhoto, b.categgoryView FROM categoryBoard as b JOIN categoryTag as t ON b.categgoryBoardID = t.categgoryBoardID JOIN userMember as i ON i.userMemberID = b.userMemberID WHERE t.categgoryTag = 'wallpaper' OR t.categgoryTag = '배경화면' GROUP BY b.categgoryBoardID ORDER BY b.categgoryBoardID DESC LIMIT {$viewLimit}, {$viewNum}";
             $boardResult = $connect -> query($boardSql);
             $tagfile = '';
             foreach($boardResult as $board) {    

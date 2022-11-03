@@ -251,6 +251,7 @@
                             alert("글 제목은 공백은 없어야하며 50글자 이내로 써주세요");
                             return false;
                         } else {
+                            // console.log(uploadTagInput.value)
                             document.upload.submit();
                     }
             }

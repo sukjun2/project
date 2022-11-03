@@ -13,7 +13,7 @@
     $plusResult = $connect->query($plusSql);
 
 
-    $viewSql = "SELECT * FROM categoryBoard as b JOIN userMember as m ON b.userMemberID = m.userMemberID  WHERE categgoryBoardID = '$categgoryBoardID'";
+    $viewSql = "SELECT b.categgoryTitle, b.regTime , b.categgoryView, m.userNickName, b.categgoryPhoto, b.categgoryContents FROM categoryBoard as b JOIN userMember as m ON b.userMemberID = m.userMemberID WHERE categgoryBoardID = '$categgoryBoardID'";
     $viewResult = $connect->query($viewSql);
 
     $tagsSql = "SELECT * FROM categoryTag WHERE categgoryBoardID = '$categgoryBoardID'";
@@ -95,7 +95,7 @@
                             if($cou > 0){
                                 foreach ($tagsResult as $tag) {
                         ?>
-							<a href="#"><?=$tag['categgoryTag']?></a>
+							<a href='../search/search.php?searchKeyword=<?=$tag['categgoryTag']?>&searchSelect=3'><?=$tag['categgoryTag']?></a>
                         <?php 
                             }
                         } else echo "<a href='#'>태그가 없어요 ㅜㅜ</a>"
