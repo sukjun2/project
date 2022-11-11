@@ -17,7 +17,7 @@
                             </figure>
                         </div>
                         <div class="footer_right">
-                            <article class="footer_menu">
+                            <!-- <article class="footer_menu">
                                 <h3>카테고리</h3>
                                 <ul>
                                     <li><a href="#">조회수 순위</a></li>
@@ -25,7 +25,7 @@
                                     <li><a href="#">반응 순위</a></li>
                                     <li><a href="#">댓글 순위</a></li>
                                 </ul>
-                            </article>
+                            </article> -->
                             <article class="footer_menu">
                                 <h3>메뉴</h3>
                                 <ul>

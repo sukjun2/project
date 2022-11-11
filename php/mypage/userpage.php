@@ -74,7 +74,7 @@ $boardResult = $connect -> query($boardSql);
                             <div class='personal_phone'>
                                 <form>
                                     <label for='phone' class='ir'>전화번호</label>
-                                    <input type='text' id='phone_val' class='phone' name='phone_val' placeholder='010-0000-0000' value='<?=$userInfoo['userPhone']?>' disabled/>
+                                    <input type='text' id='phone_val' class='phone' name='phone_val' placeholder='010-0000-0000' value='개인정보보호' disabled/>
                                 </form>
                             </div>
                             <div class='personal_email'><?=$userInfoo['userEmail']?></div>

@@ -32,7 +32,6 @@ include "../connect/connect.php";
                             $userName = $_POST['youName'];
                             $userEmail = $_POST['youEmail'];
                             $userPass = $_POST['youPass'];
-                           
                             $regTime = time();
                             $userID = $connect -> real_escape_string(trim($userID));
                             $userName = $connect -> real_escape_string(trim($userName));
@@ -45,7 +44,6 @@ include "../connect/connect.php";
                             $sql2 = "UPDATE userMember SET userNickName = '$userID'  WHERE userID='$userID'";
                             $result = $connect -> query($sql);
                             // echo $sql;
-
                             $result2 = $connect -> query($sql2);
                             if($result && $result2){
                                 echo "<figure>
